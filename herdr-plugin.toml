@@ -1,0 +1,34 @@
+id = "tayhcode.herdrcc"
+name = "Control Center"
+version = "0.1.0"
+min_herdr_version = "0.9.1"
+description = "A web interface for your agents: see who needs you, chat, approve prompts, reach it from your phone over Tailscale."
+platforms = ["linux", "macos"]
+
+[[build]]
+command = ["npm", "ci"]
+
+[[build]]
+command = ["npm", "run", "build"]
+
+# Runs the server in this pane until you close it. Prints a link for this machine.
+[[panes]]
+id = "open"
+title = "Control Center"
+placement = "tab"
+command = ["node", "bin/herdrcc.js"]
+
+# Prints a pairing link and QR code for your phone or another computer.
+# Needs Control Center running (this pane, or the background service).
+[[panes]]
+id = "pair"
+title = "Pair a device"
+placement = "overlay"
+command = ["sh", "-c", "node bin/herdrcc.js pair; printf '\\nPress Enter to close. '; read _"]
+
+# Shares Control Center with your other devices over Tailscale (tailnet only) and keeps it running in the background.
+[[panes]]
+id = "install-service"
+title = "Run in background with remote access"
+placement = "overlay"
+command = ["sh", "-c", "node bin/herdrcc.js install-service --remote; printf '\\nPress Enter to close. '; read _"]
