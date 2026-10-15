@@ -51,7 +51,7 @@ function AgentCard({ agent, summary }: { agent: LiveAgent; summary?: string }) {
 function RecentColumns({ state, events }: { state: LiveState; events: ActivityEvent[] }) {
   const recent = useQuery({ queryKey: ["recent"], queryFn: fetchRecent, refetchInterval: 8000 });
   const byPane = new Map(state.agents.map((a) => [a.paneId, a]));
-  // Live status changes first, then each agent's last session activity so the column is useful straight after loading.
+
   const seen = new Set(events.map((e) => e.paneId));
   const feed = [
     ...events.slice(0, 8).map((e) => ({ key: `e${e.id}`, paneId: e.paneId, name: e.agent, status: e.to, text: e.from ? `${STATUS_LABEL[e.from]} → ${STATUS_LABEL[e.to]}` : `Appeared as ${STATUS_LABEL[e.to]}`, at: e.at })),

@@ -80,7 +80,7 @@ export class DemoLive implements LiveSource {
         if (a.status === "done") a.log.push("", "● Done. Let me know if you want any changes.");
       }
     }
-    // The first working agent finishes a pass and starts another every 40s so the demo keeps moving.
+
     const cycle = Math.floor((now - this.started) / 40000) % 2;
     const ada = this.agents[0];
     if (!ada.until && cycle === 1 && ada.status === "working") {
